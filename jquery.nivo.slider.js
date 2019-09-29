@@ -26,7 +26,41 @@
         // Get this slider
         var slider = $(element);
         slider.data('nivo:vars', vars).addClass('nivoSlider');
+        
+        // Add listeners
+        
+        slider.on('slideto.nivoslider', function(e, index) {
+            if(vars.running) return false;
+            if($(this).hasClass('active')) return false;
+            clearInterval(timer);
+            timer = '';
+            sliderImg.attr('src', vars.currentImage.attr('src'));
+            vars.currentSlide = index - 1;
+            nivoRun(slider, kids, settings, 'control');
+        });
+        
+        slider.on('slideprev.nivoslider', function(e) {
+            if(vars.running) { return false; }
+            clearInterval(timer);
+            timer = '';
+            vars.currentSlide -= 2;
+            // fire new callback for previous navigation
+            settings.onPrevSlide.call(this);
+            nivoRun(slider, kids, settings, 'prev');
+        });
+        
+        slider.on('slidenext.nivoslider', function(e) {
+            if(vars.running) { return false; }
+            clearInterval(timer);
+            timer = '';
+            // fire new callback for next navigation
+            settings.onNextSlide.call(this);
 
+            nivoRun(slider, kids, settings, 'prev');
+
+            nivoRun(slider, kids, settings, 'next');
+        });
+        
         // Find our slider children
         var kids = slider.children();
         kids.each(function() {
@@ -124,18 +158,22 @@
             slider.append('<div class="nivo-directionNav"><a class="nivo-prevNav">'+ settings.prevText +'</a><a class="nivo-nextNav">'+ settings.nextText +'</a></div>');
             
             $(slider).on('click', 'a.nivo-prevNav', function(){
+                slider.trigger('slideprev.nivoslider');
+                /*
                 if(vars.running) { return false; }
                 clearInterval(timer);
                 timer = '';
                 vars.currentSlide -= 2;
-                nivoRun(slider, kids, settings, 'prev');
+                nivoRun(slider, kids, settings, 'prev');*/
             });
             
             $(slider).on('click', 'a.nivo-nextNav', function(){
+                slider.trigger('slidenext.nivoslider');
+                /*
                 if(vars.running) { return false; }
                 clearInterval(timer);
                 timer = '';
-                nivoRun(slider, kids, settings, 'next');
+                nivoRun(slider, kids, settings, 'next');*/
             });
         }
         
@@ -160,13 +198,15 @@
             $('a:eq('+ vars.currentSlide +')', vars.controlNavEl).addClass('active');
             
             $('a', vars.controlNavEl).bind('click', function(){
+                slider.trigger('slideto.nivoslider', [ $(this).attr('rel') ]);
+                /*
                 if(vars.running) return false;
                 if($(this).hasClass('active')) return false;
                 clearInterval(timer);
                 timer = '';
                 sliderImg.attr('src', vars.currentImage.attr('src'));
                 vars.currentSlide = $(this).attr('rel') - 1;
-                nivoRun(slider, kids, settings, 'control');
+                nivoRun(slider, kids, settings, 'control');*/
             });
         }
         
@@ -209,7 +249,7 @@
         
         // Add slices for slice animations
         var createSlices = function(slider, settings, vars) {
-        	if($(vars.currentImage).parent().is('a')) $(vars.currentImage).parent().css('display','block');
+            if($(vars.currentImage).parent().is('a')) $(vars.currentImage).parent().css('display','block');
             $('img[src="'+ vars.currentImage.attr('src') +'"]', slider).not('.nivo-main-image,.nivo-control img').width(slider.width()).css('visibility', 'hidden').show();
             var sliceHeight = ($('img[src="'+ vars.currentImage.attr('src') +'"]', slider).not('.nivo-main-image,.nivo-control img').parent().is('a')) ? $('img[src="'+ vars.currentImage.attr('src') +'"]', slider).not('.nivo-main-image,.nivo-control img').parent().height() : $('img[src="'+ vars.currentImage.attr('src') +'"]', slider).not('.nivo-main-image,.nivo-control img').height();
 
@@ -247,7 +287,7 @@
         
         // Add boxes for box animations
         var createBoxes = function(slider, settings, vars){
-        	if($(vars.currentImage).parent().is('a')) $(vars.currentImage).parent().css('display','block');
+            if($(vars.currentImage).parent().is('a')) $(vars.currentImage).parent().css('display','block');
             $('img[src="'+ vars.currentImage.attr('src') +'"]', slider).not('.nivo-main-image,.nivo-control img').width(slider.width()).css('visibility', 'hidden').show();
             var boxWidth = Math.round(slider.width()/settings.boxCols),
                 boxHeight = Math.round($('img[src="'+ vars.currentImage.attr('src') +'"]', slider).not('.nivo-main-image,.nivo-control img').height() / settings.boxRows);
@@ -615,6 +655,18 @@
             }
         };
         
+        this.slideTo = function(index){
+            $(element).trigger('slideto.nivoslider', [ index ]);
+        };
+        
+        this.slidePrev = function() {
+            $(element).trigger('slideprev.nivoslider');
+        }
+        
+        this.slideNext = function() {
+            $(element).trigger('slidenext.nivoslider');
+        }
+        
         // Trigger the afterLoad callback
         settings.afterLoad.call(this);
         
@@ -654,7 +706,10 @@
         afterChange: function(){},
         slideshowEnd: function(){},
         lastSlide: function(){},
-        afterLoad: function(){}
+        afterLoad: function(){},
+        onPrevSlide: function(){},
+        onNextSlide: function(){}
+
     };
 
     $.fn._reverse = [].reverse;
