@@ -55,7 +55,6 @@
             timer = '';
             // fire new callback for next navigation
             settings.onNextSlide.call(this);
-
             nivoRun(slider, kids, settings, 'prev');
 
             nivoRun(slider, kids, settings, 'next');
@@ -343,6 +342,7 @@
 
             // Set current background before change
             if(!nudge){
+                settings.onNextSlide.call(this);
                 sliderImg.attr('src', vars.currentImage.attr('src'));
             } else {
                 if(nudge === 'prev'){
@@ -352,7 +352,7 @@
                     sliderImg.attr('src', vars.currentImage.attr('src'));
                 }
             }
-            
+                        
             vars.currentSlide++;
             // Trigger the slideshowEnd callback
             if(vars.currentSlide === vars.totalSlides){ 
