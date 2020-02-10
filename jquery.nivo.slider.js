@@ -162,7 +162,7 @@
         //Process initial  caption
         processCaption(settings);
         
-        //Process afterInit Callback
+        //Process afterInit Callback (passes currentSlide Index just before slideshow autoplay starts)
         settings.afterInit.call(this, vars.currentSlide, vars, options);
 
         // In the words of Super Mario "let's a go!"
@@ -178,21 +178,10 @@
             
             $(slider).on('click', 'a.nivo-prevNav', function(){
                 slider.trigger('slideprev.nivoslider');
-                /*
-                if(vars.running) { return false; }
-                clearInterval(timer);
-                timer = '';
-                vars.currentSlide -= 2;
-                nivoRun(slider, kids, settings, 'prev');*/
             });
             
             $(slider).on('click', 'a.nivo-nextNav', function(){
                 slider.trigger('slidenext.nivoslider');
-                /*
-                if(vars.running) { return false; }
-                clearInterval(timer);
-                timer = '';
-                nivoRun(slider, kids, settings, 'next');*/
             });
         }
         
@@ -218,14 +207,6 @@
             
             $('a', vars.controlNavEl).bind('click', function(){
                 slider.trigger('slideto.nivoslider', [ $(this).attr('rel') ]);
-                /*
-                if(vars.running) return false;
-                if($(this).hasClass('active')) return false;
-                clearInterval(timer);
-                timer = '';
-                sliderImg.attr('src', vars.currentImage.attr('src'));
-                vars.currentSlide = $(this).attr('rel') - 1;
-                nivoRun(slider, kids, settings, 'control');*/
             });
         }
         
@@ -263,8 +244,6 @@
                 timer = setInterval(function(){ nivoRun(slider, kids, settings, false); }, settings.pauseTime);
             }
             // Trigger the afterChange callback
-
-            // settings.afterChange.call(this);
             settings.afterChange.call(this, vars.currentSlide, vars, options);
 
         }); 
@@ -352,11 +331,7 @@
             // Get our vars
             var vars = slider.data('nivo:vars');
             
-            // Trigger the lastSlide callback
-
-            // if(vars && (vars.currentSlide === vars.totalSlides - 1)){ 
-            //     settings.lastSlide.call(this);
-            // }            
+            // Trigger the lastSlide callback       
             if(vars && (vars.currentSlide == vars.totalSlides - 1 && !vars.stop)){ 
                 settings.lastSlide.call(this, vars.currentSlide, vars, options);
             }
@@ -365,8 +340,6 @@
             if((!vars || vars.stop) && !nudge) { return false; }
             
             // Trigger the beforeChange callback
-            
-            // settings.beforeChange.call(this);
             settings.beforeChange.call(this, vars.currentSlide, vars, options);
 
             // Set current background before change
@@ -386,8 +359,6 @@
             // Trigger the slideshowEnd callback
             if(vars.currentSlide === vars.totalSlides){ 
                 vars.currentSlide = 0;
-                
-                // settings.slideshowEnd.call(this);
                 settings.slideshowEnd.call(this, vars.currentSlide, vars, options);
 
             }
@@ -700,9 +671,6 @@
         };
         
         // Trigger the afterLoad callback
-        
-        // settings.afterLoad.call(this);
-
         settings.afterLoad.call(this, vars, options);
         
         return this;
