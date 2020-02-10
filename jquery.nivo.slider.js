@@ -1,5 +1,5 @@
 /*
- * jQuery Nivo Slider v3.3
+ * jQuery Nivo Slider v3.3.1
  * http://nivo.dev7studios.com
  *
  * Copyright 2012, Dev7studios

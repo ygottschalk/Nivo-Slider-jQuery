@@ -1,6 +1,6 @@
 {
   "name": "nivoslider",
-  "version": "3.3",
+  "version": "3.3.1",
   "title": "Nivo Slider",
   "author": {
     "name": "Gilbert Pellegrom",
@@ -13,7 +13,7 @@
     }
   ],
   "dependencies": {
-    "jquery": ">=1.7"
+    "jquery": ">=1.9"
   },
   "description": "The Most Awesome jQuery Image Slider.",
   "keywords": [
