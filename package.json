@@ -17,6 +17,6 @@
     "uglify-js": "^3.6.0"
   },
   "scripts": {
-    "build": "uglifyjs --compress typeofs=false --mangle --comments \"/^!/\" --source-map \"includeSources,url=jquery.nivoslider-3.3.min.js.map\" --output jquery.nivoslider-3.3.min.js jquery.nivo.slider.js"
+    "build": "uglifyjs --compress typeofs=false --mangle --comments \"/^!/\" --source-map \"includeSources,url=jquery.nivoslider-3.3.1.min.js.map\" --output jquery.nivoslider-3.3.1.min.js jquery.nivo.slider.js"
   }
 }
