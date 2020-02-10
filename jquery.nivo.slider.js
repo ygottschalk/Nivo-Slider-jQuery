@@ -1,11 +1,26 @@
 /*
- * jQuery Nivo Slider v3.2
+ * jQuery Nivo Slider v3.3
  * http://nivo.dev7studios.com
  *
  * Copyright 2012, Dev7studios
  * Free to use and abuse under the MIT license.
  * http://www.opensource.org/licenses/mit-license.php
  */
+
+/*
+ * new additions culled from various authors
+ * v3.3 additions:
+ *
+ * add/expose slideTo, slidePrev and slideNext public methods
+ * -- https://github.com/Codeinwp/Nivo-Slider-jQuery/pull/367 
+ * -- (by pencildrummer) https://github.com/pencildrummer/Nivo-Slider
+ *
+ * add callback parameters and other tweaks
+ * -- https://github.com/Codeinwp/Nivo-Slider-jQuery/pull/402
+ * -- (by ian-splintercell-splinter) https://github.com/ian-splintercell-splinter
+ *
+ */
+
 
 (function($) {
     var NivoSlider = function(element, options){
@@ -45,7 +60,7 @@
             timer = '';
             vars.currentSlide -= 2;
             // fire new callback for previous navigation
-            settings.onPrevSlide.call(this);
+            settings.onPrevSlide.call(this, vars.currentSlide, vars, options);
             nivoRun(slider, kids, settings, 'prev');
         });
         
@@ -54,7 +69,7 @@
             clearInterval(timer);
             timer = '';
             // fire new callback for next navigation
-            settings.onNextSlide.call(this);
+            settings.onNextSlide.call(this, vars.currentSlide, vars, options);
             nivoRun(slider, kids, settings, 'prev');
 
             nivoRun(slider, kids, settings, 'next');
@@ -141,7 +156,7 @@
             } else {
                 nivoCaption.stop().fadeOut(settings.animSpeed);
             }
-        }
+        };
         
         //Process initial  caption
         processCaption(settings);
@@ -151,6 +166,7 @@
         if(!settings.manualAdvance && kids.length > 1){
             timer = setInterval(function(){ nivoRun(slider, kids, settings, false); }, settings.pauseTime);
         }
+
         
         // Add Direction nav
         if(settings.directionNav){
@@ -243,7 +259,10 @@
                 timer = setInterval(function(){ nivoRun(slider, kids, settings, false); }, settings.pauseTime);
             }
             // Trigger the afterChange callback
-            settings.afterChange.call(this);
+
+            // settings.afterChange.call(this);
+            settings.afterChange.call(this, vars.currentSlide, vars, options);
+
         }); 
         
         // Add slices for slice animations
@@ -330,15 +349,21 @@
             var vars = slider.data('nivo:vars');
             
             // Trigger the lastSlide callback
-            if(vars && (vars.currentSlide === vars.totalSlides - 1)){ 
-                settings.lastSlide.call(this);
+
+            // if(vars && (vars.currentSlide === vars.totalSlides - 1)){ 
+            //     settings.lastSlide.call(this);
+            // }            
+            if(vars && (vars.currentSlide == vars.totalSlides - 1 && !vars.stop)){ 
+                settings.lastSlide.call(this, vars.currentSlide, vars, options);
             }
-            
+
             // Stop
             if((!vars || vars.stop) && !nudge) { return false; }
             
             // Trigger the beforeChange callback
-            settings.beforeChange.call(this);
+            
+            // settings.beforeChange.call(this);
+            settings.beforeChange.call(this, vars.currentSlide, vars, options);
 
             // Set current background before change
             if(!nudge){
@@ -357,7 +382,10 @@
             // Trigger the slideshowEnd callback
             if(vars.currentSlide === vars.totalSlides){ 
                 vars.currentSlide = 0;
-                settings.slideshowEnd.call(this);
+                
+                // settings.slideshowEnd.call(this);
+                settings.slideshowEnd.call(this, vars.currentSlide, vars, options);
+
             }
             if(vars.currentSlide < 0) { vars.currentSlide = (vars.totalSlides - 1); }
             // Set vars.currentImage
@@ -661,14 +689,16 @@
         
         this.slidePrev = function() {
             $(element).trigger('slideprev.nivoslider');
-        }
+        };
         
         this.slideNext = function() {
             $(element).trigger('slidenext.nivoslider');
-        }
+        };
         
         // Trigger the afterLoad callback
-        settings.afterLoad.call(this);
+        
+        // settings.afterLoad.call(this);
+        settings.afterLoad.call(this, vars, options);
         
         return this;
     };
@@ -702,13 +732,13 @@
         prevText: 'Prev',
         nextText: 'Next',
         randomStart: false,
-        beforeChange: function(){},
-        afterChange: function(){},
-        slideshowEnd: function(){},
-        lastSlide: function(){},
-        afterLoad: function(){},
-        onPrevSlide: function(){},
-        onNextSlide: function(){}
+        beforeChange: function(){},     // function(slideIndex, runtimeVars, options)
+        afterChange: function(){},      // function(slideIndex, runtimeVars, options)
+        slideshowEnd: function(){},     // function(slideIndex, runtimeVars, options)
+        lastSlide: function(){},        // function(slideIndex, runtimeVars, options)
+        afterLoad: function(){},        // function(runtimeVars, options)
+        onPrevSlide: function(){},      // function(slideIndex, runtimeVars, options)
+        onNextSlide: function(){}       // function(slideIndex, runtimeVars, options)
 
     };
 
