@@ -126,6 +126,7 @@
         sliderImg.attr('src', vars.currentImage.attr('src')).show();
         slider.append(sliderImg);
 
+
         // Detect Window Resize
         $(window).resize(function() {
             slider.children('img').width(slider.width());
@@ -161,6 +162,9 @@
         //Process initial  caption
         processCaption(settings);
         
+        //Process afterInit Callback
+        settings.afterInit.call(this, vars.currentSlide, vars, options);
+
         // In the words of Super Mario "let's a go!"
         var timer = 0;
         if(!settings.manualAdvance && kids.length > 1){
@@ -698,6 +702,7 @@
         // Trigger the afterLoad callback
         
         // settings.afterLoad.call(this);
+
         settings.afterLoad.call(this, vars, options);
         
         return this;
@@ -736,6 +741,7 @@
         afterChange: function(){},      // function(slideIndex, runtimeVars, options)
         slideshowEnd: function(){},     // function(slideIndex, runtimeVars, options)
         lastSlide: function(){},        // function(slideIndex, runtimeVars, options)
+        afterInit: function(){},        // function(slideIndex, runtimeVars, options)
         afterLoad: function(){},        // function(runtimeVars, options)
         onPrevSlide: function(){},      // function(slideIndex, runtimeVars, options)
         onNextSlide: function(){}       // function(slideIndex, runtimeVars, options)
