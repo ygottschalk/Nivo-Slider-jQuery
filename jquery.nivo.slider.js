@@ -61,6 +61,7 @@
             vars.currentSlide -= 2;
             // fire new callback for previous navigation
             settings.onPrevSlide.call(this, vars.currentSlide, vars, options);
+            
             nivoRun(slider, kids, settings, 'prev');
         });
         
@@ -70,8 +71,7 @@
             timer = '';
             // fire new callback for next navigation
             settings.onNextSlide.call(this, vars.currentSlide, vars, options);
-            nivoRun(slider, kids, settings, 'prev');
-
+            
             nivoRun(slider, kids, settings, 'next');
         });
         
