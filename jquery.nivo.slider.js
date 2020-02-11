@@ -7,19 +7,13 @@
  * http://www.opensource.org/licenses/mit-license.php
  */
 
-/*
- * new additions culled from various authors
- * v3.3 additions:
+/* 
+ * Now maintained at Github.com:
+ * https://github.com/thecarnie/Nivo-Slider-jQuery
  *
- * add/expose slideTo, slidePrev and slideNext public methods
- * -- https://github.com/Codeinwp/Nivo-Slider-jQuery/pull/367 
- * -- (by pencildrummer) https://github.com/pencildrummer/Nivo-Slider
- *
- * add callback parameters and other tweaks
- * -- https://github.com/Codeinwp/Nivo-Slider-jQuery/pull/402
- * -- (by ian-splintercell-splinter) https://github.com/ian-splintercell-splinter
- *
+ * see changelog for update accredidations
  */
+
 
 
 (function($) {

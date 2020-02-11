@@ -1,0 +1,31 @@
+NIVO SLIDER - JQUERY VERSION - CHANGELOG
+
+EFFECTIVE FROM v3.2 FORWARD - see commit log for previous changes
+-----------------------------------------------------------------
+
+
+v3.3.1
+------------
+
+Cleanup Bugfixes to slidePrev and slideNext methods.
+
+Create Wiki Pages at https://github.com/thecarnie/Nivo-Slider-jQuery/wiki
+
+Update Packaging and Distribution Files
+
+Create changelog for tracking updates and accreditation for patches
+
+Various source updates to reflect new maintenance location for this fork.
+
+
+v3.3
+------------
+
+Add / expose slideTo, slidePrev and slideNext public methods
+-- https://github.com/Codeinwp/Nivo-Slider-jQuery/pull/367 
+-- (by pencildrummer) https://github.com/pencildrummer/Nivo-Slider
+
+Add callback parameters and other tweaks
+-- https://github.com/Codeinwp/Nivo-Slider-jQuery/pull/402
+-- (by ian-splintercell-splinter) https://github.com/ian-splintercell-splinter
+
