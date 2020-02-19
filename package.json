@@ -14,9 +14,10 @@
     "url": "https://github.com/gilbitron/Nivo-Slider.git"
   },
   "devDependencies": {
-    "uglify-js": "^3.6.0"
+    "uglify-js": "^3.6.0",
+    "cross-env": "^7.0.0"
   },
   "scripts": {
-    "build": "uglifyjs --compress typeofs=false --mangle --comments \"/^!/\" --source-map \"includeSources,url=jquery.nivoslider-3.3.1.min.js.map\" --output jquery.nivoslider-3.3.1.min.js jquery.nivo.slider.js"
+    "build": "cross-env-shell uglifyjs --compress typeofs=false --mangle --comments \"/^!/\" --source-map \"includeSources,url=jquery.nivoslider-$npm_package_version.min.js.map\" --output jquery.nivoslider-$npm_package_version.min.js jquery.nivo.slider.js"
   }
 }
