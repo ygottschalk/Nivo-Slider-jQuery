@@ -117,14 +117,20 @@
         
         // Set first background
         var sliderImg = $('<img/>').addClass('nivo-main-image');
-        sliderImg.attr('src', vars.currentImage.attr('src')).show();
+        sliderImg.attr({
+            src: vars.currentImage.attr('src'),
+            alt: vars.currentImage.attr('alt')
+        }).show();
         slider.append(sliderImg);
 
 
         // Detect Window Resize
         $(window).resize(function() {
             slider.children('img').width(slider.width());
-            sliderImg.attr('src', vars.currentImage.attr('src'));
+            sliderImg.attr({
+                src: vars.currentImage.attr('src'),
+                alt: vars.currentImage.attr('alt')
+            });
             sliderImg.stop().height('auto');
             $('.nivo-slice').remove();
             $('.nivo-box').remove();
@@ -221,7 +227,10 @@
         
         // Event when Animation finishes
         slider.bind('nivo:animFinished', function(){
-            sliderImg.attr('src', vars.currentImage.attr('src'));
+            sliderImg.attr({
+                src: vars.currentImage.attr('src'),
+                alt: vars.currentImage.attr('alt')
+            });
             vars.running = false; 
             // Hide child links
             $(kids).each(function(){
@@ -275,9 +284,7 @@
             }
             
             $('.nivo-slice', slider).height(sliceHeight);
-            sliderImg.stop().animate({
-                height: $(vars.currentImage).height()
-            }, settings.animSpeed);
+            sliderImg.stop().animate({ height: $(vars.currentImage).height() }, settings.animSpeed);
         };
         
         // Add boxes for box animations
@@ -315,9 +322,7 @@
                 }
             }
             
-            sliderImg.stop().animate({
-                height: $(vars.currentImage).height()
-            }, settings.animSpeed);
+            sliderImg.stop().animate({ height: $(vars.currentImage).height() }, settings.animSpeed);
         };
 
         // Private run method
@@ -339,13 +344,22 @@
             // Set current background before change
             if(!nudge){
                 settings.onNextSlide.call(this);
-                sliderImg.attr('src', vars.currentImage.attr('src'));
+                sliderImg.attr({
+                    src: vars.currentImage.attr('src'),
+                    alt: vars.currentImage.attr('alt')
+                });
             } else {
                 if(nudge === 'prev'){
-                    sliderImg.attr('src', vars.currentImage.attr('src'));
+                    sliderImg.attr({
+                        src: vars.currentImage.attr('src'),
+                        alt: vars.currentImage.attr('alt')
+                    });
                 }
                 if(nudge === 'next'){
-                    sliderImg.attr('src', vars.currentImage.attr('src'));
+                    sliderImg.attr({
+                        src: vars.currentImage.attr('src'),
+                        alt: vars.currentImage.attr('alt')
+                    });
                 }
             }
                         
