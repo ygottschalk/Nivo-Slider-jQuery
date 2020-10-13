@@ -26,7 +26,7 @@
     "cross-env": "^7.0.0"
   },
   "scripts": {
-    "build":"npm run -s uglify",
+    "build": "npm run -s uglify",
     "uglify": "cross-env-shell uglifyjs --compress typeofs=false --mangle --comments \"/^!/\" --source-map \"url='jquery.nivoslider.min.js.map',includeSources\" --output jquery.nivoslider.min.js jquery.nivo.slider.js"
   }
 }
