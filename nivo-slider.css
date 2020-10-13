@@ -1,6 +1,6 @@
 /*
- * jQuery Nivo Slider v3.3.1
- * http://nivo.dev7studios.com
+ * jQuery Nivo Slider v3.3.2
+ * https://github.com/thecarnie/Nivo-Slider-Jquery
  *
  * Copyright 2012, Dev7studios
  * Free to use and abuse under the MIT license.

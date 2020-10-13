@@ -1,6 +1,6 @@
 {
   "name": "nivo-slider",
-  "version": "3.3.1",
+  "version": "3.3.2",
   "description": "The Most Awesome jQuery Image Slider.",
   "keywords": [
     "nivo",
@@ -8,16 +8,25 @@
     "slider"
   ],
   "author": "Gilbert Pellegrom",
+  "contributors": [
+    "Michael Aguiar",
+    "Ionut Neagu",
+    "Jarek Zmudzinski",
+    "thecarnie"
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/gilbitron/Nivo-Slider.git"
+    "url": "https://github.com/thecarnie/Nivo-Slider-Jquery.git",
+    "bugs": "https://github.com/thecarnie/Nivo-Slider-Jquery/issues",
+    "homepage": "https://github.com/thecarnie/Nivo-Slider-Jquery"
   },
   "devDependencies": {
     "uglify-js": "^3.6.0",
     "cross-env": "^7.0.0"
   },
   "scripts": {
-    "build": "cross-env-shell uglifyjs --compress typeofs=false --mangle --comments \"/^!/\" --source-map \"includeSources,url=jquery.nivoslider-$npm_package_version.min.js.map\" --output jquery.nivoslider-$npm_package_version.min.js jquery.nivo.slider.js"
+    "build":"npm run -s uglify",
+    "uglify": "cross-env-shell uglifyjs --compress typeofs=false --mangle --comments \"/^!/\" --source-map \"url='jquery.nivoslider.min.js.map',includeSources\" --output jquery.nivoslider.min.js jquery.nivo.slider.js"
   }
 }
