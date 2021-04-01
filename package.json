@@ -27,6 +27,6 @@
   },
   "scripts": {
     "build": "npm run -s uglify",
-    "uglify": "cross-env-shell uglifyjs --compress typeofs=false --mangle --comments \"/^!/\" --source-map \"url='jquery.nivoslider.min.js.map',includeSources\" --output jquery.nivoslider.min.js jquery.nivo.slider.js"
+    "uglify": "cross-env-shell uglifyjs --compress typeofs=false --mangle --comments \"/license/\" --source-map \"url='jquery.nivoslider.min.js.map',includeSources\" --output jquery.nivoslider.min.js jquery.nivo.slider.js"
   }
 }
