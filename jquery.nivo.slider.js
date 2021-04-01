@@ -209,7 +209,6 @@
             vars.controlNavEl.find('a:eq('+ vars.currentSlide +')', ).addClass('active');
             
             vars.controlNavEl.on('click', 'a', function(){
-                debugger;
                 slider.trigger('slideto.nivoslider', [ $(this).attr('rel') ]);
             });
         }
