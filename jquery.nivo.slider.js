@@ -1,3 +1,4 @@
+/*! (c) 2012, Dev7studios | opensource.org/licenses/MIT */
 /*
  * jQuery Nivo Slider v3.3.2
  * https://github.com/thecarnie/Nivo-Slider-Jquery
