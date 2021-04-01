@@ -36,6 +36,7 @@
         // Get this slider
         var slider = $(element)
             .data('nivo:vars', vars)
+            .data('nivo:settings', settings)
             .addClass('nivoSlider')
         
             // Add listeners
